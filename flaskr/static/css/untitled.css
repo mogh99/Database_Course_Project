@@ -1,0 +1,27 @@
+.rounded-circle.img-fluid {
+}
+
+.rounded-circle.img-fluid {
+  background-color: white;
+}
+
+.rounded-circle.img-fluid {
+  background-color: white;
+}
+
+.timeline > li .timeline-image {
+  background-color: white;
+}
+
+@media (max-width: 400px) {
+  .col-lg-8.mx-auto {
+    padding: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-body {
+    padding: 0;
+  }
+}
+

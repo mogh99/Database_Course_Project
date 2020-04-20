@@ -1,0 +1,54 @@
+{% extends "admin.html"%}
+{% block forms %}
+    {% for form in forms %}
+        {% set formID = "form"~loop.index %}
+
+        {# assign the report ID #}
+        <div class="modal fade portfolio-modal text-center" role="dialog" tabindex="-1" id="{{ formID }}">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    {# set the action name to know the processe that we should send the data to #}
+                                    {% set processName = form.__class__.__name__~"Process" %}
+                                    <form action="{{ processName }}">
+                                        {{ form.hidden_tag() }}
+                                        <div class="modal-body">
+                                            <h2 class="text-uppercase">{{ form.__class__.__name__ }}</h2>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tbody>
+                                                        {% for entity in form %}
+                                                            
+                                                            {% if loop.index != loop.length and loop.index != loop.length-1 %}
+                                                            <tr>
+                                                                <td>{{ entity.label }}</td>
+                                                                <td>{{ entity }}</td>
+                                                            </tr>
+                                                            {% endif %}
+
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            {{ form.submit(class="btn btn-primary")}}
+
+                                            <button class="btn btn-primary ml-2" data-dismiss="modal" type="button">
+                                                <i class="fa fa-times"></i>
+                                                <span>&nbsp;Close Project</span>
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock forms %}
+
