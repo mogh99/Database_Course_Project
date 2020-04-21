@@ -33,9 +33,9 @@ def addGoalsFormProcess():
 	#all the possible errors
 	return jsonify(error=form.errors)
 
-@processesApp.route("/assignCardProcess", methods=["POST"])
-def assignCardProcess():
-	form = assignCardProcess()
+@processesApp.route("/assignCardFormProcess", methods=["POST"])
+def assignCardFormProcess():
+	form = assignCardForm()
 	if form.validate_on_submit():
 		#send a success message for the admin
 		#and insert the data to the database

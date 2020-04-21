@@ -50,37 +50,42 @@
             </div>
         </div>
     {% endfor %}
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('form').submit(function (e) {
                 var url = $(this).attr("id"); // send the form data here.
+                var currentForm = $(this)
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: $(this).serialize(), // serializes the form's elements.
                     success: function (data) {
                         if(data.success){
-                            console.log(data.success)
+                            $(".alert-success").remove()
+
+                            $("<span class='alert alert-success' style='display: block'>"+data.success+"</span>").insertAfter($(currentForm).find("h2"))
+                            
+                            $(".alert-danger").remove()
                         }
                         else if(data.error){
+                            $(".alert-danger").remove()
                             var keys = Object.keys(data.error)
                             var objLength = keys.length
 
-                            console.log(data.error)
 
                             for(i = 0; i < objLength; i++){
-                                console.log(keys[i])
-                                $("#"+keys[i]).addClass("is-invalid")
+                                $("<span class='alert-danger' style='font-size: 10px; display: block;'>"+data.error[keys[i]]+"</span>").insertAfter($(currentForm).find("#"+keys[i]))
                             }
+
+                            $(".alert-success").remove()
                         }
                                                 
                     }
                 });
                 e.preventDefault(); // block the traditional submission of the form.
             });
-
-            var csrf_token = "{{ forms[0].csrf_token._value() }}";
+            
+            var csrf_token = $("#csrf_token").val();
 
             // Inject our CSRF token into our AJAX request.
             $.ajaxSetup({
