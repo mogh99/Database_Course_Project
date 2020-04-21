@@ -13,7 +13,7 @@
                                 <div class="col-lg-8 mx-auto">
                                     {# set the action name to know the processe that we should send the data to #}
                                     {% set processName = form.__class__.__name__~"Process" %}
-                                    <form action="{{ processName }}">
+                                    <form id="{{ processName }}">
                                         {{ form.hidden_tag() }}
                                         <div class="modal-body">
                                             <h2 class="text-uppercase">{{ form.__class__.__name__ }}</h2>
@@ -50,5 +50,50 @@
             </div>
         </div>
     {% endfor %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').submit(function (e) {
+                var url = $(this).attr("id"); // send the form data here.
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $(this).serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        if(data.success){
+                            console.log(data.success)
+                        }
+                        else if(data.error){
+                            var keys = Object.keys(data.error)
+                            var objLength = keys.length
+
+                            console.log(data.error)
+
+                            for(i = 0; i < objLength; i++){
+                                console.log(keys[i])
+                                $("#"+keys[i]).addClass("is-invalid")
+                            }
+                        }
+                                                
+                    }
+                });
+                e.preventDefault(); // block the traditional submission of the form.
+            });
+
+            var csrf_token = "{{ forms[0].csrf_token._value() }}";
+
+            // Inject our CSRF token into our AJAX request.
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token)
+                    }
+                }
+            })
+        });
+    </script>
 {% endblock forms %}
+
+
+
 

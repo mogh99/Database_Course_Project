@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, Blueprint
+from flask import Flask, render_template, jsonify, Blueprint, redirect, url_for
 #import all the forms from forms.py
 from flaskr.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm 
 
@@ -43,7 +43,7 @@ report3 = [
 @mainApp.route("/home")
 def main():
     # render the main page with all the reports
-    return render_template("main.html", title="home", reports=[report1, report2, report3])
+    return render_template("reports.html", title="home", reports=[report1, report2, report3])
 
 
 '''
