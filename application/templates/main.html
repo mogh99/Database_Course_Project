@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- To change the title for every page -->
+    {% if title %}
+        <title> {{ title }} </title>
+    {% endif %}
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../static/css/untitled.css">
+</head>
+
+<body id="page-top">
+    
+    <!-- header -->
+    <!-- THIS IS STATIC SECTION -->
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
+        <div class="container">
+            <!-- Main title -->
+            <a class="navbar-brand" href="#page-top">KFUPM</a>
+            
+            <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" data-toogle="collapse" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- These are the buttons in the navigation bar -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto text-uppercase">
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#services">about</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#portfolio">info</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- The main image for the website -->
+    <!-- THIS IS STATIC SECTINO -->
+    <header class="masthead" style="background-image:url('../static/img/main.jpg');">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in"><span>Welcome To Tournaments</span></div>
+                <div class="intro-heading text-uppercase"><span>here is the enjoyment</span></div><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" role="button" href="#services">To know more..</a></div>
+        </div>
+    </header>
+
+    <!-- About section include general information about the website -->
+    <!-- THIS IS STATIC SECTION -->
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="text-uppercase section-heading">About the tournament</h2>
+                    <h3 class="text-muted section-subheading"></h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-flag-checkered fa-stack-1x fa-inverse"></i></span>
+                    <p class="text-muted">Several soccor tournament take place in the kfupm campus, including faculty,stuff, and students.</p>
+                </div>
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-location-arrow fa-stack-1x fa-inverse"></i></span>
+                    <p class="text-muted">All tournament are played in building 39, in front of the students' resturant.</p>
+                </div>
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="icon ion-ios-calendar-outline fa-stack-1x fa-inverse"></i></span>
+                    <p class="text-muted">The tournament take place every day after Isha prayer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- This section have all the links to show all the reports of the tournament -->
+    <!-- THIS IS STATIC SECTINO -->
+    <section id="portfolio" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <!-- section title -->
+                    <h2 class="text-uppercase section-heading">INFO</h2>
+                    <h3 class="section-subheading text-muted">Tournament Informatino</h3>
+                </div>
+            </div>
+            <div class="row">
+                <!-- REPORT1 -->
+                <div class="col-sm-6 col-md-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#report1">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="../static/img/portfolio/estee-janssens-zni0zgb3bkQ-unsplash.jpg"></a>
+                    <div class="portfolio-caption">
+                        <h4>Teams</h4>
+                        <p class="text-muted">Teams Information</p>
+                    </div>
+                </div>
+
+                <!-- REPORT2 -->
+                <div class="col-sm-6 col-md-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#report2">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="../static/img/portfolio/mika-baumeister-Wpnoqo2plFA-unsplash.jpg"></a>
+                    <div class="portfolio-caption">
+                        <h4>Scorers</h4>
+                        <p class="text-muted">Players Scored More Than Two Goals</p>
+                    </div>
+                </div>
+
+                <!-- REPORT3 -->
+                <div class="col-sm-6 col-md-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#report3">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="../static/img/portfolio/jonathan-chng-HgoKvtKpyHA-unsplash.jpg"></a>
+                    <div class="portfolio-caption">
+                        <h4>Matchs</h4>
+                        <p class="text-muted">Matchs Informatino</p>
+                    </div>
+                </div>
+
+
+                <!-- REPORT4 -->
+                <div class="col-sm-6 col-md-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#report4">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="../static/img/portfolio/victor-garcia-raesgfwU7iM-unsplash.jpg"></a>
+                    <div class="portfolio-caption">
+                        <h4>Team Players</h4>
+                        <p class="text-muted">Team Players in a Given Match</p>
+                    </div>
+                </div>
+
+                <!-- Empty column to make a space between the last two column -->
+                <div class="col"></div>
+
+                <!-- REPORT5 -->
+                <div class="col-sm-6 col-md-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#report5">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="../static/img/portfolio/waldemar-brandt-PhhtSyCeN0I-unsplash.jpg"></a>
+                    <div class="portfolio-caption">
+                        <h4>Referee</h4>
+                        <p class="text-muted">Match refereed by a Given Referee</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- This is to add the admin content in the admin page -->
+    {% block adminContent %}
+    {% endblock adminContent %}
+
+    <!-- 
+        Page End:
+        This is the footer of the page
+     -->
+     <!-- THIS IS STATIC SECTION -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><span class="copyright">Copyright&nbsp;© Team20 2020</span></div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item"><a href="http://twitter.com/kfupm"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="http://www.facebook.com/KFUPM"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="http://www.linkedin.com/company/kfupm"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block reports %}
+    {% endblock reports %}
+    
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="../static/js/agency.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!-- 
+    Here is the pop up window that contains the tournament information
+
+    The id is used to refere to the link in the information section.
+
+    report1 (Teams information {goals scored, goals recived, points, rank})
+    report2 (Players information who scored mor than two goals)
+    report3 (Matchs information {team1, team2, filed, date})
+    report4 (Players information for a given match and team)
+    report5 (Matchs information refereed by a given referee)
+-->
+{% extends "main.html" %}
+{% block reports %}
+	{# loop through all the report and print all the values #}
+	{% for report in reports %}
+
+	    {# create an id for every report #}
+	    {% set reportID = "report"~loop.index %}
+	    
+	    {# assign the report ID #}
+	    <div class="modal fade portfolio-modal text-center" role="dialog" tabindex="-1" id="{{ reportID }}">
+	        <div class="modal-dialog modal-lg" role="document">
+	            <div class="modal-content">
+	                <div class="modal-body">
+	                    <div class="container">
+	                        <div class="row">
+	                            <div class="col-lg-8 mx-auto">
+	                                <div class="modal-body">
+	                                    {# Think about changeing the table title #}
+	                                    <h2 class="text-uppercase">{{ reportID }}</h2>
+	                                    <div class="table-responsive">
+	                                        <table class="table">
+	                                            {# The entity is a dictionary inside the report #}
+	                                            {% for entity in report %}
+
+	                                                {# This if statement to print the table titles #}
+	                                                {% if loop.index == 1 %}
+	                                                    <thead>
+	                                                        <tr>
+	                                                            {% for key in entity %}
+	                                                                <th>{{ key }}</th>
+	                                                            {% endfor %}
+	                                                        </tr>
+	                                                    </thead>
+	                                                {% endif %}
+	                                                <tbody>
+	                                                    <tr>
+	                                                        {# print all the values inside the dictionary#}
+	                                                        {% for key in entity %}
+	                                                            <td>{{ entity[key] }}</td>
+	                                                        {% endfor %}
+	                                                    </tr>
+	                                                </tbody>
+	                                            {% endfor %}
+	                                        </table>
+	                                    </div><button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fa fa-times"></i><span>&nbsp;Close Project</span></button></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	{% endfor %}
+{% endblock reports %}
