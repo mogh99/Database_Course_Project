@@ -12,14 +12,16 @@ class Match(db.Model):
 	team2Goals = db.Column(db.Integer, nullable=False, default=0)
 	comments = db.Column(db.String(100), nullable=True)
 
+	team1Relation = db.relationship("Team", foreign_keys=[team1ID])
+	team2Relation = db.relationship("Team", foreign_keys=[team2ID])
+
 	def __repr__(self):
-		pass
+		return (f'''Match('{self.matchID}','{self.team1ID}','{self.team2ID}','{self.fieldID}','{self.date}','{self.time}','{self.team1Goals}','{self.team2Goals}','{self.comments}')''')
 		
 
 class Team(db.Model):
 	teamID = db.Column(db.Integer, primary_key=True, nullable=False)
 	name = db.Column(db.String(20), unique=True, nullable=False)
-	match = db.relationship("Match", backref="match", lazy=True)
 	
 	def __repr__(self):
 		pass
@@ -30,11 +32,8 @@ class Actor(db.Model):
 	lastName = db.Column(db.String(20), nullable=False)
 	departmentID = db.Column(db.Integer, db.ForeignKey("department.departmentID"), nullable=False)
 	
-	#typeID is many-to-one relation not one-to-many relation
 	typeID = db.Column(db.Integer, db.ForeignKey("type.typeID"), nullable=False)
-	type_ = db.relationship('Type', backref='type_', lazy=True)
-
-	#contact = db.relationship('Contact', backref="contact", lazy=True)
+	typeRelation = db.relationship('Type', foreign_keys=[typeID])
 
 	def __repr__(self):
 		pass
@@ -76,25 +75,6 @@ class Department(db.Model):
 
 	def __repr__(self):
 		pass
-
-# class ContactType(db.Model):
-# 	contypeID = db.Column(db.Integer, primary_key=True, nullable=False)
-# 	name = db.Column(db.String(20), unique=True, nullable=False)
-# 	description = db.Column(db.String(100), nullable=False)
-# 	contact = db.relationship('Contact', backref='contact', lazy=True)
-
-# 	def __repr__(self):
-# 		pass
-
-# class Contact(db.Model):
-# 	contactID = db.Column(db.Integer, primary_key=True)
-# 	#kfupmID = db.Column(db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False)
-# 	contypeID = db.Column(db.Integer, db.ForeignKey("contacttype.contypeID"), nullable=False)
-# 	value = db.Column(db.String(20), nullable=False)
-
-# 	def __repr__(self):
-# 		pass
-
 
 #Many-To-Many Relations
 tournamentActor = db.Table("torActor",

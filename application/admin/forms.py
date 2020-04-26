@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-
+from application.models import *
 
 class addMatchForm(FlaskForm):
 	team1Name = StringField('Team1 Name',validators=[

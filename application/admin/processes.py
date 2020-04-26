@@ -9,6 +9,7 @@
 from flask import Blueprint, jsonify, url_for
 from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm
 from application import db
+from application.models import *
 
 processesApp = Blueprint('processesApp', __name__)
 
@@ -18,6 +19,7 @@ def addMatchFormProcess():
 	if form.validate_on_submit():
 		#send a success message for the admin
 		#and insert the data to the database
+
 		return jsonify(success="The data have been inserted")
 	#send an error message for the admin that include
 	#all the possible errors
