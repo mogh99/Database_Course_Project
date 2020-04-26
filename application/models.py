@@ -7,7 +7,7 @@ class Match(db.Model):
 	team2ID = db.Column(db.Integer, db.ForeignKey("team.teamID"), nullable=False)
 	fieldID = db.Column(db.Integer, db.ForeignKey("field.fieldID"), nullable=False)
 	date = db.Column(db.Date, nullable=False)
-	time = db.Column(db.DateTime, nullable=False)
+	time = db.Column(db.String(20), nullable=False)
 	team1Goals = db.Column(db.Integer, nullable=False, default=0)
 	team2Goals = db.Column(db.Integer, nullable=False, default=0)
 	comments = db.Column(db.String(100), nullable=True)
