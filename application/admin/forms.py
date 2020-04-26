@@ -3,53 +3,53 @@ from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from application.models import *
 
-class addMatchForm(FlaskForm):
-	team1Name = StringField('Team1 Name',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	team2Name = StringField('Team2 Name',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	field = StringField('Field',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	date = StringField('Date',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	time = StringField('Time',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
+'''
+	The dummyData is inserted in the choices because.....
+	I don't KNOW ^_^. 
+	removing the dummyData tuple from the choices will
+	cause the form to not accept the data and will through and error
+	(Not a valid choices)
+'''
+
+class addMatchForm(FlaskForm): 
+	team1Name = SelectField('Team1 Name', choices=[], validators=[DataRequired()], coerce=int)
+
+	team2Name = SelectField('Team2 Name', choices=[], validators=[DataRequired()], coerce=int)
+
+	field = SelectField('Field', choices=[], validators=[DataRequired()], coerce=int)
+
+	date = StringField('Date', render_kw={"placeholder": "yyyy-mm-dd"},validators=[
+																		DataRequired(),
+																		Length(min=10, max=10)])
+	time = StringField('Time', render_kw={"placeholder": "hh:mm"},validators=[
+																	DataRequired(),
+																	Length(min=5, max=5)])
 	submit = SubmitField('Submit')
 
 class addGoalsForm(FlaskForm):
-	matchID = StringField('Match ID',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
+	matchID = SelectField('Match ID', choices=[], validators=[DataRequired()], coerce=int)
+
 	team1Goals = StringField('Team1 Goals',validators=[
 											DataRequired(),
-											Length(min=2, max=20)])
+											Length(min=1, max=2)])
 	team2Goals = StringField('Team2 Goals',validators=[
 											DataRequired(),
-											Length(min=2, max=20)])
+											Length(min=1, max=2)])
 	submit = SubmitField('Submit')
 
 class assignCardForm(FlaskForm):
-	matchID = StringField('Match ID',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	KFUPMID = StringField('Player ID',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	Time = StringField('Time',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
+	matchID = SelectField('Match ID', choices=[], validators=[DataRequired()], coerce=int)
+
+	kfupmID = SelectField('Player', choices=[], validators=[DataRequired()], coerce=int)
+
+	Time = StringField('Time', render_kw={"placeholder": "hh:mm"}, validators=[
+																	DataRequired(),
+																	Length(min=5, max=5)])
 	submit = SubmitField('Submit')
 
 class changeFieldForm(FlaskForm):
-	matchID = StringField('Match ID',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
-	FieldID = StringField('Field ID',validators=[
-											DataRequired(),
-											Length(min=2, max=20)])
+	matchID = SelectField('Match ID', choices=[], validators=[DataRequired()], coerce=int)
+
+	fieldID = SelectField('Field ID', choices=[], validators=[DataRequired()], coerce=int)
+
 	submit = SubmitField('Submit')

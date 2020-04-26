@@ -53,6 +53,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('form').submit(function (e) {
+                console.log($(this).serialize())
+                console.log($(this))
                 var url = $(this).attr("id"); // send the form data here.
                 var currentForm = $(this)
                 $.ajax({
@@ -63,6 +65,8 @@
                         if(data.success){
                             $(".alert-success").remove()
 
+                            console.log(data.success)
+
                             $("<span class='alert alert-success' style='display: block'>"+data.success+"</span>").insertAfter($(currentForm).find("h2"))
                             
                             $(".alert-danger").remove()
@@ -72,7 +76,7 @@
                             var keys = Object.keys(data.error)
                             var objLength = keys.length
 
-
+                            console.log(data.error)
                             for(i = 0; i < objLength; i++){
                                 $("<span class='alert-danger' style='font-size: 10px; display: block;'>"+data.error[keys[i]]+"</span>").insertAfter($(currentForm).find("#"+keys[i]))
                             }

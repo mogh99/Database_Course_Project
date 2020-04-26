@@ -1,6 +1,4 @@
 from flask import Flask, render_template, jsonify, Blueprint, redirect, url_for
-#import all the forms from forms.py
-from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm 
 
 
 mainApp = Blueprint('mainApp', __name__)
@@ -46,20 +44,4 @@ def main():
     return render_template("reports.html", title="home", reports=[report1, report2, report3])
 
 
-'''
-    The main method is responsible for rendering the main page 
-    with all the needed data.
-'''
-@mainApp.route("/admin")
-def admin():
-    # initiate all the needed
-    matchForm = addMatchForm()
-    goalsForm = addGoalsForm()
-    cardForm  = assignCardForm()
-    fieldForm = changeFieldForm()
-    
-    #render the admin page with all the forms, and reports
-    return render_template("forms.html", title="admin", 
-                            reports=[report1, report2, report3], 
-                            forms=[matchForm, goalsForm, cardForm, fieldForm])
 

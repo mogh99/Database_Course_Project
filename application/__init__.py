@@ -16,8 +16,10 @@ def create_app(config_class=Config):
     	to allow other modules to use the app instance
     '''
     from application.main.main import mainApp
+    from application.admin.admin import adminApp
     from application.admin.processes import processesApp
     app.register_blueprint(mainApp)
+    app.register_blueprint(adminApp)
     app.register_blueprint(processesApp)
 
     return app
