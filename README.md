@@ -23,3 +23,6 @@ Then you can add and commit to the database:
 
 runing the db.create_all() without the app will cause the error:
 RuntimeError: No application found. Either work inside a view function or push an application context. See http://flask-sqlalchemy.pocoo.org/contexts/.
+
+To run sql directily without using the builtin methods of SQLAlchemy use:
+>>> db.engine.execute(<sql code>)

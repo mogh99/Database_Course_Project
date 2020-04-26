@@ -46,7 +46,8 @@ def admin():
     goalsForm.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(Match).all()]
 
     cardForm  = assignCardForm()
-    cardForm.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(matchActor).all()]
+    matchQuery = f"SELECT matchID FROM Match WHERE matchID IN (SELECT matchID FROM matchActor)"
+    cardForm.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.engine.execute(matchQuery)]
     cardForm.kfupmID.choices = [(instance.kfupmID, f"{instance.kfupmID}, Match:{instance.matchID}") for instance in db.session().query(matchActor).all()]
 
     fieldForm = changeFieldForm()

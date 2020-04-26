@@ -52,12 +52,14 @@ def addGoalsFormProcess():
 @processesApp.route("/assignCardFormProcess", methods=["POST"])
 def assignCardFormProcess():
 	form = assignCardForm()
-	form.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(matchActor).all()]
+	matchQuery = f"SELECT matchID FROM Match WHERE matchID IN (SELECT matchID FROM matchActor)"
+	form.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.engine.execute(matchQuery)]
 	form.kfupmID.choices = [(instance.kfupmID, f"{instance.kfupmID}, Match:{instance.matchID}") for instance in db.session().query(matchActor).all()]
     
 	if form.validate_on_submit():
 		#insert the data to the database
-		newEvent = event()
+		newEvent = f"INSERT INTO event VALUES ({form.matchID.data}, {form.kfupmID.data}, 13, '{form.time.data}')"
+		db.engine.execute(newEvent)
 		return jsonify(success="The data have been inserted")
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)

@@ -42,7 +42,7 @@ class assignCardForm(FlaskForm):
 
 	kfupmID = SelectField('Player', choices=[], validators=[DataRequired()], coerce=int)
 
-	Time = StringField('Time', render_kw={"placeholder": "hh:mm"}, validators=[
+	time = StringField('Time', render_kw={"placeholder": "hh:mm"}, validators=[
 																	DataRequired(),
 																	Length(min=5, max=5)])
 	submit = SubmitField('Submit')
