@@ -1,19 +1,6 @@
 from application import db
 
 
-class Tournament(db.Model):
-	tournamentID = db.Column(db.Integer, primary_key=True, nullable=False)
-	name = db.Column(db.String(20), unique=True, nullable=False)
-	startDate = db.Column(db.Date, nullable=False)
-	endDate = db.Column(db.Date, nullable=False)
-
-	def __repr__(self):
-		return (f'''Tournament(
-			'{self.tournamentID}', 
-			'{self.name}', 
-			'{self.startDate}', 
-			'{self.endDate}')''')
-
 class Match(db.Model):
 	matchID = db.Column(db.Integer, primary_key=True, nullable=False)
 	team1ID = db.Column(db.Integer, db.ForeignKey("team.teamID"), nullable=False)
@@ -32,6 +19,7 @@ class Match(db.Model):
 class Team(db.Model):
 	teamID = db.Column(db.Integer, primary_key=True, nullable=False)
 	name = db.Column(db.String(20), unique=True, nullable=False)
+	match = db.relationship("Match", backref="match", lazy=True)
 	
 	def __repr__(self):
 		pass
@@ -40,9 +28,13 @@ class Actor(db.Model):
 	kfupmID = db.Column(db.Integer, primary_key=True, nullable=False)
 	firstName = db.Column(db.String(20), nullable=False)
 	lastName = db.Column(db.String(20), nullable=False)
-	goals = db.Column(db.Integer, nullable=False, default=0)
 	departmentID = db.Column(db.Integer, db.ForeignKey("department.departmentID"), nullable=False)
+	
+	#typeID is many-to-one relation not one-to-many relation
 	typeID = db.Column(db.Integer, db.ForeignKey("type.typeID"), nullable=False)
+	type_ = db.relationship('Type', backref='type_', lazy=True)
+
+	#contact = db.relationship('Contact', backref="contact", lazy=True)
 
 	def __repr__(self):
 		pass
@@ -52,6 +44,7 @@ class Category(db.Model):
 	categoryID = db.Column(db.Integer, primary_key=True, nullable=False)
 	name = db.Column(db.String(20), unique=True, nullable=False)
 	description = db.Column(db.String(100), nullable=True)
+	type_ = db.relationship('Type', backref='type_', lazy=True)
 
 	def __repr__(self):
 		pass
@@ -59,8 +52,9 @@ class Category(db.Model):
 class Type(db.Model):
 	typeID = db.Column(db.Integer, primary_key=True, nullable=False)
 	categoryID = db.Column(db.Integer, db.ForeignKey('category.categoryID'), nullable=False)
-	name = db.Column(db.String(20), unique=True, nullable=False)
+	name = db.Column(db.String(20), nullable=False)
 	description = db.Column(db.String(100), nullable=True)
+	
 
 	def __repr__(self):
 		pass
@@ -69,6 +63,7 @@ class Field(db.Model):
 	fieldID = db.Column(db.Integer, primary_key=True, nullable=False)
 	name = db.Column(db.String(20), unique=True, nullable=False)
 	description = db.Column(db.String(100), nullable=True)
+	match = db.relationship('Match', backref='match', lazy=True)
 
 	def __repr__(self):
 		pass
@@ -77,38 +72,43 @@ class Department(db.Model):
 	departmentID = db.Column(db.Integer, primary_key=True, nullable=False)
 	code = db.Column(db.Integer, nullable=False)
 	name = db.Column(db.String(20), unique=True, nullable=False)
+	actor = db.relationship('Actor', backref='actor', lazy=True)
 
 	def __repr__(self):
 		pass
 
-class ConatactType(db.Model):
-	contypeID = db.Column(db.Integer, primary_key=True, nullable=False)
-	name = db.Column(db.String(20), unique=True, nullable=False)
-	description = db.Column(db.String(100), nullable=False)
+# class ContactType(db.Model):
+# 	contypeID = db.Column(db.Integer, primary_key=True, nullable=False)
+# 	name = db.Column(db.String(20), unique=True, nullable=False)
+# 	description = db.Column(db.String(100), nullable=False)
+# 	contact = db.relationship('Contact', backref='contact', lazy=True)
 
-	def __repr__(self):
-		pass
+# 	def __repr__(self):
+# 		pass
 
-class Contact(db.Model):
-	kfupmID = db.Column(db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False)
-	contypeID = db.Column(db.Integer, db.ForeignKey("contaacttype.contypeID"), nullable=False)
-	value = db.Column(db.String(20), nullable=False)
-	def __repr__(self):
-		pass
+# class Contact(db.Model):
+# 	contactID = db.Column(db.Integer, primary_key=True)
+# 	#kfupmID = db.Column(db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False)
+# 	contypeID = db.Column(db.Integer, db.ForeignKey("contacttype.contypeID"), nullable=False)
+# 	value = db.Column(db.String(20), nullable=False)
 
+# 	def __repr__(self):
+# 		pass
 
-tags = db.Table('tags',
-    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
-    db.Column('page_id', db.Integer, db.ForeignKey('page.id'), primary_key=True)
-)
 
 #Many-To-Many Relations
-# tournamentActor = db.Table('torActor',
-# 	db.Column("tournamentID", db.Integer, db.ForeignKey("tournament.tournamentID")),
-# 	db.Column("kfupmID", db.Integer, db.ForeignKey("actor.actorID")),
-# 	db.Column("teamID", db.Integer, db.ForeignKey("team.teamID"))
-# 	db.Column("typeID", db.Integer, db.ForeignKey("type.typeID")))
+tournamentActor = db.Table("torActor",
+	db.Column("kfupmID", db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False),
+	db.Column("teamID", db.Integer, db.ForeignKey("team.teamID"), nullable=False),
+	db.Column("typeID", db.Integer, db.ForeignKey("type.typeID"), nullable=False))
 
-# matchActor = 
+matchActor = db.Table("matchActor",
+	db.Column("matchID", db.Integer, db.ForeignKey("match.matchID"), nullable=False),
+	db.Column("kfupmID", db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False),
+	db.Column("typeID", db.Integer, db.ForeignKey("type.typeID"), nullable=False))
 
-# event = 
+event = db.Table("event",
+	db.Column("matchID", db.Integer, db.ForeignKey("match.matchID"), nullable=False),
+	db.Column("kfupmID", db.Integer, db.ForeignKey("actor.kfupmID"), nullable=False),
+	db.Column("typeID", db.Integer, db.ForeignKey("type.typeID"), nullable=False),
+	db.Column("time", db.DateTime(), nullable=False)) 

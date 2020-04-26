@@ -13,7 +13,13 @@ To run the flask server:
 
 To create the database open python shell in the terminal:
 >>> from application import db, create_app
->>> db.create_all(app=create_app())
+>>> form application.models import * #import all the models 
+>>> app = create_app()
+>>> app.app_context().push()
+>>> db.create_all()
+Then you can add and commit to the database:
+>>> db.session.add([object])
+>>> db.session.commit()
 
 runing the db.create_all() without the app will cause the error:
 RuntimeError: No application found. Either work inside a view function or push an application context. See http://flask-sqlalchemy.pocoo.org/contexts/.

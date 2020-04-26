@@ -8,7 +8,6 @@
 '''
 from flask import Blueprint, jsonify, url_for
 from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm
-from application.models import Entity
 from application import db
 
 processesApp = Blueprint('processesApp', __name__)
@@ -19,9 +18,6 @@ def addMatchFormProcess():
 	if form.validate_on_submit():
 		#send a success message for the admin
 		#and insert the data to the database
-		entity = Entity(team1Name=form.team1Name.data, team2Name=form.team2Name.data)
-		db.session.add(entity)
-		db.session.commit()
 		return jsonify(success="The data have been inserted")
 	#send an error message for the admin that include
 	#all the possible errors
