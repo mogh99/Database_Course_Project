@@ -1,9 +1,19 @@
-from flask import Blueprint, jsonify, url_for
-from application.main.forms import playersForm, refereeForm
+from flask import Blueprint, jsonify, url_for, redirect
+from application.main.forms import playersForm, refereeForm, loginForm
 from application import db
 from application.models import *
 
 processesMainApp = Blueprint('processesMainApp', __name__)
+
+@processesMainApp.route("/loginFormProcess", methods=["POST"])
+def loginFormProcess():
+	form = loginForm()
+
+	if form.validate_on_submit():
+		form.username = "moahmmed"
+		form.password = "12345678"
+		return redirect(url_for('adminApp.admin'))
+	return jsonify(error=form.errors)
 
 
 @processesMainApp.route("/playersFormProcess", methods=["POST"])
@@ -28,6 +38,8 @@ def playersFormProcess():
 		return jsonify(report=data)
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)
+
+
 
 @processesMainApp.route("/refereeFormProcess", methods=["POST"])
 def refereeFormProcess():

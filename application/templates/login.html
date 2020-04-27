@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/Login-screen.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    {% if form %}
+        {%set processName = form.__class__.__name__~"Process" %}
+        <div id="login-one" class="login-one">
+            <form class="login-one-form" method="POST" action="{{ processName }}">
+                {{ form.hidden_tag() }}
+                <div class="col">
+                    <div class="login-one-ico"><i class="fa fa-unlock-alt" id="lockico"></i></div>
+                    <div class="form-group">
+                        <div>
+                            <h3 id="heading">Log in:</h3>
+                        </div>
+                        {{ form.username(class="form-control") }}
+                        {{ form.password(class="form-control") }}
+
+                        <button class="btn" id="button" style="background-color:#007ac9;" type="submit">Log in</button></div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

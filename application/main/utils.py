@@ -1,6 +1,18 @@
 from application import db
 
 
+def teamInformation():
+	'''
+		this method will return the inormation of all the teams
+	'''
+	query = f"SELECT teamID FROM team;"
+	teams = db.engine.execute(query)
+
+	matchQuery = f"SELECT * FROM match;"
+	matches = db.engine.execute(matchQuery)
+
+	
+
 def playerInformation():
 	'''
 		this method will return the information of the players

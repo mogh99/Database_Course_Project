@@ -2,23 +2,9 @@ from flask import Blueprint, render_template
 from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm 
 from application.models import *
 from application.main.forms import playersForm, refereeForm
-from application.main.utils import playerInformation, matchInformation
+from application.main.utils import playerInformation, matchInformation, teamInformation
 
 adminApp = Blueprint('adminApp', __name__)
-
-report1 = [
-            {"teamName": "team1",
-            "goalsScored":5,
-            "goalsReceived": 10,
-            "points": 3,
-            "rank": 10}
-            ,
-            {"teamName": "team2",
-            "goalsScored": 10,
-            "goalsReceived": 10,
-            "points": 10,
-            "rank": 1}
-          ]
 
 @adminApp.route("/admin")
 def admin():
@@ -43,12 +29,13 @@ def admin():
     #static reports
     playerInformationReport = playerInformation()
     matchInformationReport = matchInformation()
+    teamInformatinoReport = teamInformation()
 
     #dynamic reports
     teamPlayers = playersForm()
     teamPlayers.match.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(Match).all()]
-    query = f"SELECT M.matchID, T.teamID FROM match M NATURAL JOIN team T;"
-    teamPlayers.team.choices = [(instance.teamID, f"Team{instance.teamID}, Match{instance.matchID}") for instance in db.engine.execute(query)]
+    query = f"SELECT teamID FROM team;"
+    teamPlayers.team.choices = [(instance.teamID, f"Team{instance.teamID}") for instance in db.engine.execute(query)]
     referees = refereeForm()
     query = f'''SELECT DISTINCT A.kfupmID, A.firstName, A.lastName 
                 FROM matchActor M 
@@ -60,6 +47,6 @@ def admin():
 
     #render the admin page with all the forms, and reports
     return render_template("forms.html", title="admin", 
-                            staticReports=[report1, playerInformationReport, matchInformationReport],
+                            staticReports=[ playerInformationReport, matchInformationReport],
                             dynamicReports=[teamPlayers, referees], 
                             forms=[matchForm, goalsForm, cardForm, fieldForm])
