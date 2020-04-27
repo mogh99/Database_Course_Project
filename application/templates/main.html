@@ -19,6 +19,81 @@
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
     <link rel="stylesheet" href="../static/css/untitled.css">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').submit(function (e) {
+                var url = $(this).attr("id"); // send the form data here.
+                var currentForm = $(this)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $(this).serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        if(data.success){
+                            $(".alert-success").remove()
+
+                            $("<span class='alert alert-success' style='display: block'>"+data.success+"</span>").insertAfter($(currentForm).find("h2"))
+                            
+                            $(".alert-danger").remove()
+                        }
+                        else if(data.error){
+                            $(".alert-danger").remove()
+                            var keys = Object.keys(data.error)
+                            var objLength = keys.length
+
+                            for(i = 0; i < objLength; i++){
+                                $("<span class='alert-danger' style='font-size: 10px; display: block;'>"+data.error[keys[i]]+"</span>").insertAfter($(currentForm).find("#"+keys[i]))
+                            }
+
+                            $(".alert-success").remove()
+                        }
+                        else if(data.report){
+                            $(".dynamicReport").remove()
+                            var keys = Object.keys(data.report[0])
+                            var keysLength = keys.length
+                            var titles = ""
+                            var headerReady = true
+
+                            for(i = 0; i < data.report.length; i++){
+                                var newData = ""
+                                for(j = 0; j < keysLength; j++){
+                                    if(headerReady){
+                                        titles += "<th>"+keys[j]+"</th>"
+                                    }
+
+                                    newData += "<td>"+data.report[i][keys[j]]+"</td>" 
+                                }
+                                if(headerReady){
+                                    tableHeader = "<tr class='dynamicReport'>"+titles+"</tr>"
+                                    $(tableHeader).appendTo($(currentForm).find("tbody"))
+                                    headerReady = false
+                                }
+                                dataRow = "<tr class='dynamicReport'>"+newData+"</tr>"
+                                $(dataRow).appendTo($(currentForm).find("tbody"))
+                            }
+                            
+                            
+                        }
+                                                
+                    }
+                });
+                e.preventDefault(); // block the traditional submission of the form.
+            });
+            
+            var csrf_token = $("#csrf_token").val();
+
+            // Inject our CSRF token into our AJAX request.
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token)
+                    }
+                }
+            })
+        });
+    </script>
+
 </head>
 
 <body id="page-top">

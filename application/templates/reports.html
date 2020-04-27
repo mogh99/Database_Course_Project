@@ -11,8 +11,8 @@
 -->
 {% extends "main.html" %}
 {% block reports %}
-	{# loop through all the report and print all the values #}
-	{% for report in reports %}
+	{# loop through all the static report and print all the values #}
+	{% for report in staticReports %}
 
 	    {# create an id for every report #}
 	    {% set reportID = "report"~loop.index %}
@@ -62,4 +62,61 @@
 	        </div>
 	    </div>
 	{% endfor %}
+
+	{% for report in dynamicReports %}
+	    {# create an id for every report #}
+	    {# 3 added to the reportID becasue we have already 3 static reports #}
+	    {% set reportID = "report"~(loop.index+3) %}
+	    
+	    {# assign the report ID #}
+	    <div class="modal fade portfolio-modal text-center" role="dialog" tabindex="-1" id="{{ reportID }}">
+	        <div class="modal-dialog modal-lg" role="document">
+	            <div class="modal-content">
+	                <div class="modal-body">
+	                    <div class="container">
+	                        <div class="row">
+	                            <div class="col-lg-8 mx-auto">
+	                            	{# set the id to know the processe that we should send the data to #}
+                                    {% set processName = report.__class__.__name__~"Process" %}
+	                            	<form id="{{ processName }}">
+										{{ report.hidden_tag() }}
+		                                <div class="modal-body">
+		                                    {# Think about changeing the table title #}
+		                                    <h2 class="text-uppercase">{{ reportID }}</h2>
+		                                    <div class="table-responsive">
+		                                        <table class="table">
+		                                        	<thead>
+		                                        		
+		                                        	</thead>
+	                                                <tbody>
+	                                                    <tr>
+	                                                        {% for entity in report %}
+                                                            
+                                                            {% if loop.index != loop.length and loop.index != loop.length-1 %}
+                                                            <tr>
+                                                                <td>{{ entity.label }}</td>
+                                                                <td>{{ entity }}</td>
+                                                            </tr>
+                                                            {% endif %}
+
+                                                        	{% endfor %}
+	                                                    </tr>
+	                                                </tbody>
+		                                        </table>
+		                                    </div>
+		                                    {{ report.submit(class="btn btn-primary") }}
+		                                    <button class="btn btn-primary" data-dismiss="modal" type="button">
+		                                    	<i class="fa fa-times"></i>
+		                                    	<span>&nbsp;Close Project</span>
+		                                    </button>
+		                                </div>
+	                            	</form>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    {% endfor %}
 {% endblock reports %}

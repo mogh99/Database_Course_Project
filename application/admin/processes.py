@@ -11,9 +11,9 @@ from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, 
 from application import db
 from application.models import *
 
-processesApp = Blueprint('processesApp', __name__)
+processesAdminApp = Blueprint('processesAdminApp', __name__)
 
-@processesApp.route("/addMatchFormProcess", methods=["POST"])
+@processesAdminApp.route("/addMatchFormProcess", methods=["POST"])
 def addMatchFormProcess():
 	form = addMatchForm()
 	form.team1Name.choices = [(instance.teamID, instance.name) for instance in db.session().query(Team).all()]
@@ -34,7 +34,7 @@ def addMatchFormProcess():
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)
 
-@processesApp.route("/addGoalsFormProcess", methods=["POST"])
+@processesAdminApp.route("/addGoalsFormProcess", methods=["POST"])
 def addGoalsFormProcess():
 	form = addGoalsForm()
 	form.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(Match).all()]
@@ -49,7 +49,7 @@ def addGoalsFormProcess():
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)
 
-@processesApp.route("/assignCardFormProcess", methods=["POST"])
+@processesAdminApp.route("/assignCardFormProcess", methods=["POST"])
 def assignCardFormProcess():
 	form = assignCardForm()
 	matchQuery = f"SELECT matchID FROM Match WHERE matchID IN (SELECT matchID FROM matchActor)"
@@ -64,7 +64,7 @@ def assignCardFormProcess():
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)
 
-@processesApp.route("/changeFieldFormProcess", methods=["POST"])
+@processesAdminApp.route("/changeFieldFormProcess", methods=["POST"])
 def changeFieldFormProcess():
 	form = changeFieldForm()
 	form.matchID.choices = [(instance.matchID, f"Match{instance.matchID}") for instance in db.session().query(Match).all()]
