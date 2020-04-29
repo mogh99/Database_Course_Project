@@ -1,0 +1,6 @@
+TODO:
+1. Modify the database models and fix all the relations
+2. Remove all the direct insertion in the sql queries
+3. Create a file for all the load information for the main, admin, main.processes, and admin.processes
+4. Fix the login and use session with it
+5. Orgnize the project more espicially in the main.py, and admin.py

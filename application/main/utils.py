@@ -1,17 +1,52 @@
-from application import db
+from application import db		
+
+class Team(object):
+	def __init__(self, teamID, goalsScored, goalsRecivied):
+		self.teamID = teamID
+		self.goalsScored = goalsScored
+		self.goalsRecivied = goalsRecivied
+		self.rank = 1
 
 
-def teamInformation():
-	'''
-		this method will return the inormation of all the teams
-	'''
-	query = f"SELECT teamID FROM team;"
-	teams = db.engine.execute(query)
+def teamsInformation():
+	teamsQuery = f"SELECT teamID FROM team;"
+	teamsIDs = db.engine.execute(teamsQuery)
 
-	matchQuery = f"SELECT * FROM match;"
-	matches = db.engine.execute(matchQuery)
-
+	teams = [Team(teamID=team.teamID, goalsScored=0, goalsRecivied=0) for team in teamsIDs]
 	
+	matchQuery = f"SELECT * FROM match;"
+	matchsData = db.engine.execute(matchQuery)
+
+	matchs = [{"team1ID":match.team1ID, "team2ID":match.team2ID, "team1Goals":match.team1Goals, "team2Goals":match.team2Goals} for match in matchsData]
+
+	for match in matchs:
+		for team in teams:
+			if team.teamID == match["team1ID"]:
+				team.goalsScored = match["team1Goals"] + team.goalsScored
+				team.goalsRecivied = match["team2Goals"] + team.goalsRecivied
+			elif team.teamID == match["team2ID"]:
+				team.goalsScored = match["team2Goals"] + team.goalsScored
+				team.goalsRecivied = match["team1Goals"] + team.goalsRecivied
+
+	teamRank(teams)
+
+	data = [{"TeamID":team.teamID, "Goals Scored":team.goalsScored, "Goals Recivied":team.goalsRecivied, "Points":team.goalsScored*2, "Rank":team.rank} for team in teams]
+
+	return data
+
+
+def teamRank(teams):
+
+	for team1 in teams:
+		for team2 in teams:
+			if team1.goalsScored < team2.goalsScored:
+				team1.rank = team1.rank + 1
+
+
+'''
+	playerInformation() and matchInformation()
+	populate the reports in the main, and admin page
+'''
 
 def playerInformation():
 	'''

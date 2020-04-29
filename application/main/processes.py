@@ -1,7 +1,17 @@
-from flask import Blueprint, jsonify, url_for, redirect
+from flask import Blueprint, jsonify, url_for, redirect, render_template
 from application.main.forms import playersForm, refereeForm, loginForm
 from application import db
+from sqlalchemy.sql import exists
 from application.models import *
+'''
+	-loginFormProcess, refereeFormProcess, and playersFormProcess
+	process the responses that come from the 
+	reports in the main and admin pages
+	
+	-The methods name consist of the form name
+	plus the word Process.
+	example: loginFormProcess + Process = addMathcFormProcess 
+'''
 
 processesMainApp = Blueprint('processesMainApp', __name__)
 
@@ -10,10 +20,17 @@ def loginFormProcess():
 	form = loginForm()
 
 	if form.validate_on_submit():
-		form.username = "moahmmed"
-		form.password = "12345678"
-		return redirect(url_for('adminApp.admin'))
-	return jsonify(error=form.errors)
+		if db.session.query(exists().where(Admin.name==form.username.data)).scalar():
+			admin = db.session().query(Admin).filter_by(name=form.username.data).one() 
+			if str(admin.password) == str(form.password.data): 
+				return redirect(url_for('adminApp.admin'))
+			else:
+				return render_template("login.html", form=form, error="Password is wrong")
+		else:
+			return render_template("login.html", form=form, error="Username is wrong")
+	
+	else:
+		return render_template("login.html", form=form, error=form.errors)
 
 
 @processesMainApp.route("/playersFormProcess", methods=["POST"])
@@ -38,7 +55,6 @@ def playersFormProcess():
 		return jsonify(report=data)
 	#send an error message that include all the possible errors
 	return jsonify(error=form.errors)
-
 
 
 @processesMainApp.route("/refereeFormProcess", methods=["POST"])

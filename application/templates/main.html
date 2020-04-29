@@ -115,7 +115,15 @@
                 <ul class="nav navbar-nav ml-auto text-uppercase">
                     <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#services">about</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#portfolio">info</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/login">login</a></li>
+                    {% if title == "home" %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="/login">login</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('mainApp.main') }}">logout</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
-from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm 
 from application.models import *
+from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm 
 from application.main.forms import playersForm, refereeForm
-from application.main.utils import playerInformation, matchInformation, teamInformation
+from application.main.utils import playerInformation, matchInformation, teamsInformation
 
 adminApp = Blueprint('adminApp', __name__)
 
@@ -29,7 +29,7 @@ def admin():
     #static reports
     playerInformationReport = playerInformation()
     matchInformationReport = matchInformation()
-    teamInformatinoReport = teamInformation()
+    teamsInformatinoReport = teamsInformation()
 
     #dynamic reports
     teamPlayers = playersForm()
@@ -47,6 +47,6 @@ def admin():
 
     #render the admin page with all the forms, and reports
     return render_template("forms.html", title="admin", 
-                            staticReports=[ playerInformationReport, matchInformationReport],
+                            staticReports=[teamsInformatinoReport, playerInformationReport, matchInformationReport],
                             dynamicReports=[teamPlayers, referees], 
                             forms=[matchForm, goalsForm, cardForm, fieldForm])

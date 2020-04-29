@@ -1,8 +1,8 @@
 from flask import Flask, render_template, jsonify, Blueprint, redirect, url_for
-from application.main.utils import playerInformation, matchInformation, teamInformation
-from application.main.forms import playersForm, refereeForm, loginForm
 from application import db
 from application.models import Match
+from application.main.forms import playersForm, refereeForm, loginForm
+from application.main.utils import playerInformation, matchInformation, teamsInformation
 
 
 mainApp = Blueprint('mainApp', __name__)
@@ -17,7 +17,7 @@ def main():
     #static reports
     playerInformationReport = playerInformation()
     matchInformationReport = matchInformation()
-    teamInformationReport = teamInformation()
+    teamsInformationReport = teamsInformation()
 
     #dynamic reports
     teamPlayers = playersForm()
@@ -35,7 +35,7 @@ def main():
      
     # render the main page with all the reports
     return render_template("reports.html", title="home", 
-                            staticReports=[ playerInformationReport, matchInformationReport],
+                            staticReports=[teamsInformationReport, playerInformationReport, matchInformationReport],
                             dynamicReports=[teamPlayers, referees])
 
 @mainApp.route("/login")

@@ -3,13 +3,13 @@
 	for the admin, and the guest users.
 	
 	-The methods name is consist of the forms methods names
-	plus the work Process.
+	plus the word Process.
 	example: addMatchForm + Process = addMathcFormProcess 
 '''
-from flask import Blueprint, jsonify, url_for
-from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm
+from flask import Blueprint, jsonify
 from application import db
 from application.models import *
+from application.admin.forms import addMatchForm, addGoalsForm, assignCardForm, changeFieldForm
 
 processesAdminApp = Blueprint('processesAdminApp', __name__)
 

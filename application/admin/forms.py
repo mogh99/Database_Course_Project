@@ -1,15 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
-from application.models import *
-
-'''
-	The dummyData is inserted in the choices because.....
-	I don't KNOW ^_^. 
-	removing the dummyData tuple from the choices will
-	cause the form to not accept the data and will through and error
-	(Not a valid choices)
-'''
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length
 
 class addMatchForm(FlaskForm): 
 	team1Name = SelectField('Team1 Name', choices=[], validators=[DataRequired()], coerce=int)

@@ -22,6 +22,11 @@
                     <div class="form-group">
                         <div>
                             <h3 id="heading">Log in:</h3>
+                            {% if error %}
+                                <span class='alert alert-danger' style='display: block'>
+                                    {{ error }}
+                                </span>
+                            {% endif %}
                         </div>
                         {{ form.username(class="form-control") }}
                         {{ form.password(class="form-control") }}

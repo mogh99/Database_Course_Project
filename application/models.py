@@ -38,8 +38,13 @@ class Match(db.Model):
 		return (f"Match('{self.matchID}','{self.team1ID}','{self.team2ID}','{self.fieldID}','{self.date}','{self.time}','{self.team1Goals}','{self.team2Goals}','{self.comments}')")
 		
 
+class Admin(db.Model):
+	adminID = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(20), unique=True, nullable=False)
+	password = db.Column(db.Integer, nullable=False)
+
 class Team(db.Model):
-	teamID = db.Column(db.Integer, primary_key=True, nullable=False)
+	teamID = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(20), unique=True, nullable=False)
 	
 	def __repr__(self):
