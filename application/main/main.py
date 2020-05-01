@@ -34,7 +34,7 @@ def main():
     referees.referee.choices = [(instance.kfupmID, f"{instance.firstName} {instance.lastName}") for instance in db.engine.execute(query)]
      
     # render the main page with all the reports
-    return render_template("reports.html", title="home", 
+    return render_template("reports.html", title="home",
                             staticReports=[teamsInformationReport, playerInformationReport, matchInformationReport],
                             dynamicReports=[teamPlayers, referees])
 
