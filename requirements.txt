@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 click==7.1.1
 Flask==1.1.2
 Flask-SQLAlchemy==2.4.1
@@ -10,9 +9,3 @@ MarkupSafe==1.1.1
 SQLAlchemy==1.3.16
 Werkzeug==1.0.1
 WTForms==2.2.1
-=======
-flask
-python3-flask
-Flask-WTF
-flask-sqlalchemy
->>>>>>> 97e62509158dc797dc68e5a7703a3e4e3cb14bbe
