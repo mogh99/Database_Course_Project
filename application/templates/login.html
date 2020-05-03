@@ -4,40 +4,91 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>Login</title>
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/Login-screen.css">
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/untitled.css">
 </head>
 
-<body>
-    {% if form %}
-        {%set processName = form.__class__.__name__~"Process" %}
-        <div id="login-one" class="login-one">
-            <form class="login-one-form" method="POST" action="{{ processName }}">
-                {{ form.hidden_tag() }}
-                <div class="col">
-                    <div class="login-one-ico"><i class="fa fa-unlock-alt" id="lockico"></i></div>
-                    <div class="form-group">
-                        <div>
-                            <h3 id="heading">Log in:</h3>
-                            {% if error %}
-                                <span class='alert alert-danger' style='display: block'>
-                                    {{ error }}
-                                </span>
-                            {% endif %}
-                        </div>
-                        {{ form.username(class="form-control") }}
-                        {{ form.password(class="form-control") }}
-
-                        <button class="btn" id="button" style="background-color:#007ac9;" type="submit">Log in</button></div>
-                </div>
-            </form>
+<body id="page-top">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">KFUPM</a>
+            <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" data-toogle="collapse" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto text-uppercase">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link js-scroll-trigger" href="/">BROWSE</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    {% endif %}
+    </nav>
+    <header class="masthead">
+        <div class="container-fluid">
+            <div class="row mh-100vh">
+                <div class="col-10 col-sm-8 col-md-6 col-lg-6 offset-1 offset-sm-2 offset-md-3 offset-lg-0 align-self-center d-lg-flex align-items-lg-center align-self-lg-stretch bg-white p-5 rounded rounded-lg-0 my-5 my-lg-0" id="login-block">
+                    <div class="m-auto w-lg-75 w-xl-50">
+                        {% if form %}
+                            {% set processName = form.__class__.__name__~"Process" %}
+                            <form method="POST" action="{{ processName }}">
+                                {{ form.hidden_tag() }}
+                                {% if error %}
+                                    <span class='alert alert-danger' style='display: block'>
+                                        {{ error }}
+                                    </span>
+                                {% endif %}
+
+                                <div class="form-group">
+                                    {{ form.username.label(class="text-secondary") }}
+                                    {{ form.username(class="form-control") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password.label(class="text-secondary") }}
+                                    {{ form.password(class="form-control") }}
+                                </div>
+                                <button class="btn btn-info mt-2" type="submit">Log In</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-end" id="bg-block" style="background-image: url(&quot;../static/img/willian-justen-de-vasconcellos-KqpDuf1i83w-unsplash.jpg&quot;);background-size: cover;background-position: center center;">
+                </div>
+            </div>
+        </div>
+    </header>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><span class="copyright">Copyright&nbsp;© Team20 2020</span></div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item"><a href="http://twitter.com/kfupm"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="http://www.facebook.com/KFUPM"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="http://www.linkedin.com/company/kfupm"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item"></li>
+                        <li class="list-inline-item"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="../static/js/agency.js"></script>
 </body>
 
 </html>
