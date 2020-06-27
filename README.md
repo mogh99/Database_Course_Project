@@ -20,7 +20,7 @@ Every team consists of three members. Our team decides to build a website for th
 ```
 ~$ python3 run.py
 ```
-OR Insted of step 2 and 3
+OR Insted of step 3
 ```
 export FLASK_APP=run.py
 export FLASK_ENV=development
